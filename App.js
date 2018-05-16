@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { Accelerometer } from 'expo'
 
 const quotes = [
   'ask again later',
@@ -17,6 +18,31 @@ const randomNumber = (start, end) =>
 export default class App extends React.Component {
   state = {
     activeQuote: 0
+  }
+
+  componentDidMount() {
+    this.startListeningToAccelerometer()
+  }
+
+  componentWillUnmount() {
+    this.stopListeningToAccelerometer()
+  }
+
+  startListeningToAccelerometer = () => {
+    this.listener = Accelerometer.addListener(data => {
+      if (data.x > 1.5) {
+        this.randomizeQuote()
+      } else if (data.y > 1.5) {
+        this.randomizeQuote()
+      } else if (data.z > 1.5) {
+        this.randomizeQuote()
+      }
+    })
+  }
+
+  stopListeningToAccelerometer = () => {
+    this.listener && this.listener.remove()
+    this.listener = null
   }
 
   randomizeQuote = () => {
