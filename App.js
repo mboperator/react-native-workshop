@@ -12,13 +12,17 @@ const quotes = [
 ]
 
 export default class App extends React.Component {
+  state = {
+    activeQuote: 0
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity>
           <View style={styles.eightBall}>
             <Text style={styles.eightBallText}>
-              Something profound
+              {quotes[this.state.activeQuote]}
             </Text>
           </View>
         </TouchableOpacity>
