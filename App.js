@@ -1,6 +1,16 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
+const quotes = [
+  'ask again later',
+  'lol no',
+  'maybe next time',
+  'probably',
+  'yes',
+  'hellllllllyeah',
+  'rekt'
+]
+
 export default class App extends React.Component {
   render() {
     return (
