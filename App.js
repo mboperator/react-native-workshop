@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.eightBall}>
-          <Text style={styles.eightBallText}>
-            Something profound
-          </Text>
-        </View>
+        <TouchableOpacity>
+          <View style={styles.eightBall}>
+            <Text style={styles.eightBallText}>
+              Something profound
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     )
   }
