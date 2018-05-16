@@ -11,15 +11,22 @@ const quotes = [
   'rekt'
 ]
 
+const randomNumber = (start, end) =>
+  Math.floor(Math.random() * end) + start
+
 export default class App extends React.Component {
   state = {
     activeQuote: 0
   }
 
+  randomizeQuote = () => {
+    this.setState({ activeQuote: randomNumber(0, quotes.length) })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.randomizeQuote}>
           <View style={styles.eightBall}>
             <Text style={styles.eightBallText}>
               {quotes[this.state.activeQuote]}
