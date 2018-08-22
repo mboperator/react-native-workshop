@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { Accelerometer } from 'expo'
 
 const colorCombinations = {
   even: {
@@ -21,20 +22,43 @@ export default class App extends React.Component {
     // This sets the Component's initial state
     // State is a piece of data that represents the things that can change in the view
     this.state = {
-      buttonPresses: 0
+      timesShaken: 0
     }
   }
 
-  logButtonPress = () => {
+  componentDidMount() {
+    this.startListeningToAccelerometer()
+  }
+
+  componentWillUnmount() {
+    this.stopListeningToAccelerometer()
+  }
+
+
+  logPhoneShake = () => {
     this.setState({
-      buttonPresses: this.state.buttonPresses + 1
+      timesShaken: this.state.timesShaken + 1
     })
   }
+
+  startListeningToAccelerometer = () => {
+    this.listener = Accelerometer.addListener(data => {
+      console.log(data)
+      if (data.x > 1.5) {
+        this.logPhoneShake()
+      } else if (data.y > 1.5) {
+        this.logPhoneShake()
+      } else if (data.z > 1.5) {
+        this.logPhoneShake()
+      }
+    })
+  }
+
 
   // The render function runs every time you update the state
   render() {
     // The modulo operator divides the FIRST number by the SECOND number and returns the REMAINDER
-    const countIsOdd = this.state.buttonPresses % 2 === 0
+    const countIsOdd = this.state.timesShaken % 2 === 0
     let buttonColor
     let backgroundColor
 
@@ -50,8 +74,8 @@ export default class App extends React.Component {
     return (
       <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
         <Button
-          onPress={this.logButtonPress}
-          title={`You pushed the button ${this.state.buttonPresses} times.`}
+          onPress={this.logPhoneShake}
+          title={`Phone has been shook ${this.state.timesShaken} times.`}
           color={buttonColor}
         />
       </View>
